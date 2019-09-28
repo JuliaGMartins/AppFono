@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -8,10 +9,10 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page {
 
-  constructor(private router: Router) {}
+  constructor(private menuCtrl: MenuController ,private router: Router) {}
 
-  go(){
-    this.router.navigateByUrl('./meu-perfil.page.html');
+  meuperfil(){
+    this.router.navigate(['meu-perfil']);
 }
 
 }

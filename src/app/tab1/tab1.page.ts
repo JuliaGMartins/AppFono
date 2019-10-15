@@ -14,5 +14,8 @@ export class Tab1Page {
   meuperfil(){
     this.router.navigate(['meu-perfil']);
 }
+  opcoes(){
+    this.router.navigate(['opcoes']);
+}
 
 }

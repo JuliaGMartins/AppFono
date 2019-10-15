@@ -1,0 +1,7 @@
+{
+  "name": "appFono",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+        <span text-color="my-custom-color"> App Fono </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="userProfile?.nome" >
+    <div *ngFor="let paciente of pacientes">
+    <ion-card color="primary">
+      <ion-card-header>
+        <ion-card-subtitle>Bem-vindo</ion-card-subtitle>
+        <ion-card-title>{{userProfile?.nome}}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-list>
+      <ion-item>
+          <ion-icon name="person" item-start color="primary"></ion-icon>
+          <ion-button fill="clear" class="itemBtns" (click)="irperfil()">Meu Perfil</ion-button>
+      </ion-item>
+      <ion-item>
+          <ion-icon name="settings" item-start color="primary"></ion-icon>
+          <ion-button fill="clear" class="itemBtns" (click)="iropcoes()">Opções</ion-button>
+      </ion-item>
+      <ion-item>
+          <ion-icon name="help-circle" item-start color="primary"></ion-icon>
+          <ion-button fill="clear" class="itemBtns" (click)="irajuda()">Ajuda</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="log-out" item-start color="primary"></ion-icon>
+        <ion-button fill="clear"  class="itemBtns" (click)="logout()">Sair da conta</ion-button>
+    </ion-item>
+  </ion-list>
+  </div>
+</ion-content>
+
+
+
+

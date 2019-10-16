@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Paciente } from '../interfaces/paciente';
-import { Subscription } from 'rxjs';
-import { PacienteService } from '../services/paciente.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-tab3',
@@ -9,17 +7,22 @@ import { PacienteService } from '../services/paciente.service';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  private pacientes = new Array<Paciente>();
-  private pacienteSubscription: Subscription;
+  private texturas = new Array();
+  public userProfile: any = {};
 
-  constructor(private pacienteService: PacienteService) {
-    this.pacienteSubscription = this.pacienteService.getPaciente().subscribe(data => {
-      this.pacientes = data;
-    });
+  constructor(private userservice: UserService) { }
+
+  ionViewWillEnter() {
+    this.userservice
+      .getUserProfile().get()
+      .then(userProfileSnapshot => {
+        this.userProfile = userProfileSnapshot.data();
+      });
+    this.texturas = this.userProfile.textura;
   }
 
-  ngOnDestroy(){
-    this.pacienteSubscription.unsubscribe();
+  ngOnDestroy() {
+
   }
 
 

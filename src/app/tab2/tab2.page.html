@@ -13,8 +13,8 @@
     </ion-card-header>
   </ion-card>
 
-  <ion-list *ngFor="let paciente of pacientes">
-    <ion-item *ngFor="let exercicio of paciente.exercicio">
+  <ion-list>
+    <ion-item *ngFor="let exercicio of exercicios">
       <ion-card>
         <img [src]="exercicio">
         <ion-card-header>
@@ -22,7 +22,7 @@
           <ion-card-subtitle>Descrição:</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          <ion-button  color="primary" expand="block" shape="round">Concluido!
+          <ion-button color="primary" expand="block" shape="round">Concluido!
             <ion-icon slot="start" name="checkmark"></ion-icon>
           </ion-button>
         </ion-card-content>

@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Paciente } from '../interfaces/paciente';
 import { Subscription } from 'rxjs';
-import { PacienteService } from 'src/app/services/paciente.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -14,21 +12,14 @@ import { UserService } from '../services/user.service';
 })
 export class Tab1Page {
 
-  private pacientes = new Array<Paciente>();
-  private pacienteSubscription: Subscription;
   public userProfile: any;
   
     constructor(
     private menuCtrl: MenuController,
     private router: Router,
     private authService: AuthService,
-    private pacienteService: PacienteService,
     private userservice: UserService,
-    ){
-      this.pacienteSubscription = this.pacienteService.getPaciente().subscribe(data => {
-        this.pacientes = data;
-            });
-    };
+    ){ };
    
 
   async logout() {
@@ -51,16 +42,15 @@ export class Tab1Page {
   }
 
   ionViewWillEnter(){
-    console.log(this.userProfile)
     this.userservice
     .getUserProfile().get()
     .then( userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.data();
     });
+    console.log(this.userProfile)
   }
 
   ngOnDestroy(){
-    this.pacienteSubscription.unsubscribe();
   }
 
   toggleMenu() {

@@ -15,12 +15,13 @@ export class LoginPage implements OnInit {
 
   public userLogin: User = {};
   private loading: any;
+  public userProfile: any;
   
   constructor(private router: Router,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private authService: AuthService,
-    private user:UserService) {
+    private userservice:UserService) {
 
      }
 
@@ -29,6 +30,19 @@ export class LoginPage implements OnInit {
 
     try {
       await this.authService.login(this.userLogin);
+
+      this.userservice
+      .getUserProfile().get()
+      .then( userProfileSnapshot => {
+      this.userProfile = userProfileSnapshot.data();
+
+      if (this.userProfile.isfono){
+        this.router.navigate(['perfil']);
+      }else{
+        this.router.navigateByUrl('app');
+      }
+      
+    });
     } catch (error) {
       // console.error(error);
       let message: string;

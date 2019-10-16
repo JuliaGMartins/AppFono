@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -11,19 +11,22 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { UserService } from './services/user.service';
+import { LoginPage } from './login/login.page';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule ,AngularFirestoreModule,
-    AngularFireModule.initializeApp(environment.firebase)],
+    AngularFireModule.initializeApp(environment.firebase),AngularFireAuthModule],
   providers: [
     /*@Injectable({
       provideIn: 'root'
     }),*/
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, UserService
   ],
   bootstrap: [AppComponent]
 })

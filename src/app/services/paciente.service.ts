@@ -10,7 +10,7 @@ export class PacienteService {
   private pacienteCollection: AngularFirestoreCollection<Paciente>;
   constructor(private afs: AngularFirestore) {
     this.pacienteCollection = this.afs.collection<Paciente>('paciente');
-}
+  }
   getPacientes(){
     return this.pacienteCollection.snapshotChanges().pipe(
       //é necessário utilizar o snapshotChanges() pois precisamos recuperar o id também e não só os valores da tabela
@@ -25,12 +25,10 @@ export class PacienteService {
       })
     )
   }
-  getPaciente(id: Paciente){
-
+  getPacienteID(id: string){
+    return this.pacienteCollection.doc<Paciente>(id).valueChanges();
   }
-  getPacienteName(nome: Paciente){
 
-  }
   getPacienteExercicios(exercicios: Paciente){
 
   }

@@ -1,4 +1,4 @@
 export interface Fonoaudiologo {
-    nome?: string
-    paciente?: Array<string>
+    nome?: string;
+    paciente?: Array<string>;
 }

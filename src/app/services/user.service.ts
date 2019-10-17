@@ -15,10 +15,11 @@ export class UserService {
   getUser(){
     firebase.auth().onAuthStateChanged(user => 
       { if (user) 
-        { this.currentUser = user; 
+        {
           this.userProfile = firebase.firestore().doc(`/contas/${user.uid}`); } }); 
           this.currentUser = firebase.auth().currentUser; 
           this.userProfile = firebase.firestore().doc(`/contas/${this.currentUser.uid}`);
+          
       return this.userProfile;
   }
 

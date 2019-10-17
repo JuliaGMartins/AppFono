@@ -52,12 +52,4 @@ export class Tab1Page {
     });
   }
 
-  ngOnDestroy(){
-    this.pacienteSubscription.unsubscribe();
-  }
-
-  toggleMenu() {
-    this.menuCtrl.toggle();
-  }
-
 }

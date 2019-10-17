@@ -2,6 +2,7 @@ export interface Paciente {
     chegada?: string;
     exercicio?: Array<string>;
     nome?: string;
-    saida?: string;
+    isFono?: boolean;
+    paciente?: Array<string>;
     textura?: Array<string>;
 }

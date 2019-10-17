@@ -6,6 +6,9 @@ import { Paciente } from '../interfaces/paciente';
 import { Fonoaudiologo } from '../interfaces/fonoaudiologo';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-tab2',
@@ -22,26 +25,19 @@ export class Tab2Page {
   public pacienteProfile: any;
 
 
-  constructor(private userservice: UserService, private PacienteService: PacienteService,) {
-    this.pacienteSubscription = PacienteService.getPacientes().subscribe(id => {
-      this.pacienteProfileID = id;});
-  }
-
-  async searchPaciente (id: string) {
-      this.pacienteProfile = this.PacienteService.getPacienteID(id);
-  }
+  constructor(private userservice: UserService) {}
 
   ionViewWillEnter() {
     this.userservice
       .getUserProfile().get()
       .then(userProfileSnapshot => {
         this.userProfile = userProfileSnapshot.data();
+        this.userProfile.pacientes = [];
+        this.userProfile.paciente.forEach(element => {
+          firebase.firestore().doc(`/contas/${element.id}`).get().then(paciente => {
+            this.userProfile.pacientes.push(paciente.data());
+          });
+        });
       });
-    //this.paciente = this.userProfile.paciente;
   }
-
-    ngOnDestroy(){
-      this.pacienteSubscription.unsubscribe();
-      this.fonoaudiologoSubscription.unsubscribe();
-    }
 }

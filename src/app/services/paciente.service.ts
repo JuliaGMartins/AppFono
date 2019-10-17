@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class PacienteService {
   private pacienteCollection: AngularFirestoreCollection<Paciente>;
   constructor(private afs: AngularFirestore) {
-    this.pacienteCollection = this.afs.collection<Paciente>('paciente');
+    this.pacienteCollection = this.afs.collection<Paciente>('contas');
   }
   getPacientes(){
     return this.pacienteCollection.snapshotChanges().pipe(

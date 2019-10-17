@@ -11,11 +11,11 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: 'app-ftab2',
+  templateUrl: 'ftab2.page.html',
+  styleUrls: ['ftab2.page.scss']
 })
-export class Tab2Page {
+export class FTab2Page {
   private paciente = new Array<Paciente>();
   private fonoaudiologo = new Array<Fonoaudiologo>();
   private pacienteSubscription: Subscription;

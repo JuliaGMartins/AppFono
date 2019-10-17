@@ -5,8 +5,8 @@ import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
-  { path: '', redirectTo: 'tabs', pathMatch: 'full'},
-  { path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'ftabs', pathMatch: 'full'},
+  { path: 'app', loadChildren: './ftabs/ftabs.module#FTabsPageModule', canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [LoginGuard] },
   { path: 'meu-perfil', loadChildren: './meu-perfil/meu-perfil.module#MeuPerfilPageModule' },
   { path: 'ajuda', loadChildren: './ajuda/ajuda.module#AjudaPageModule' },

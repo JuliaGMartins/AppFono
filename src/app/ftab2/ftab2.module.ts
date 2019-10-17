@@ -1,19 +1,17 @@
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { TabsPageRoutingModule } from './tabs.router.module';
-
-import { TabsPage } from './tabs.page';
+import { FTab2Page } from './ftab2.page';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    RouterModule.forChild([{ path: '', component: FTab2Page }])
   ],
-  declarations: [TabsPage]
+  declarations: [FTab2Page]
 })
-export class TabsPageModule {}
+export class FTab2PageModule {}

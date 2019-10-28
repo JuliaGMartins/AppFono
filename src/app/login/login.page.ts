@@ -36,10 +36,10 @@ export class LoginPage implements OnInit {
       .then( userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.data();
 
-      if (this.userProfile.isfono){
-        this.router.navigate(['perfil']);
+      if (!this.userProfile.isfono){
+        this.router.navigateByUrl('app/ptabs');
       }else{
-        this.router.navigateByUrl('app');
+        this.router.navigateByUrl('app/ftabs');
       }
       
     });

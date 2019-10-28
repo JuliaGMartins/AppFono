@@ -45,8 +45,8 @@
 
   <ion-list *ngFor="let p of userProfile?.pacientes">
       <ion-item>
-          <ion-button fill = "clear" class = "itemBtns"><ion-label>{{p.nome}}</ion-label></ion-button>
-      </ion-item>
+          <ion-button fill = "clear" class = "itemBtns" (click)="fexercicios(p)"><ion-label>{{p.nome}}</ion-label></ion-button>
+        </ion-item>
   </ion-list>
 
 </ion-content>

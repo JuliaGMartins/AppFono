@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { PacienteService } from '../services/paciente.service';
-import { FonoaudiologoService } from '../services/fonoaudiologo.service';
-import { Paciente } from '../interfaces/paciente';
-import { Fonoaudiologo } from '../interfaces/fonoaudiologo';
 import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { Router } from '@angular/router';
+import { ExerciciosService } from '../services/exercicios.service';
 
 @Component({
   selector: 'app-ftab2',
@@ -16,16 +12,19 @@ import 'firebase/firestore';
   styleUrls: ['ftab2.page.scss']
 })
 export class FTab2Page {
-  private paciente = new Array<Paciente>();
-  private fonoaudiologo = new Array<Fonoaudiologo>();
-  private pacienteSubscription: Subscription;
-  private fonoaudiologoSubscription: Subscription;
   public userProfile: any;
   public pacienteProfileID: any;
   public pacienteProfile: any;
+  public exercicioProfileID: any;
+  public exercicioProfile: any;
 
 
-  constructor(private userservice: UserService) {}
+  constructor(private userservice: UserService, private router: Router) {}
+
+  fexercicios(paciente: any){
+    ExerciciosService.paciente = paciente;
+    this.router.navigate(['fexercicios']);
+}
 
   ionViewWillEnter() {
     this.userservice
@@ -36,8 +35,16 @@ export class FTab2Page {
         this.userProfile.paciente.forEach(element => {
           firebase.firestore().doc(`/contas/${element.id}`).get().then(paciente => {
             this.userProfile.pacientes.push(paciente.data());
+            //console.log(this.userservice)
           });
         });
+        // this.userProfile.pacientes.exercicio = [];
+        // this.userProfile.pacientes.exercicios.forEach(element => {
+        //   firebase.firestore().doc(`/exercicios/${element.id}`).get().then(exercicios => {
+        //     this.userProfile.pacientes.exercicio.push(exercicios.data());
+        //     console.log(exercicios.data())
+        //   });
+        // });
       });
   }
 }

@@ -14,6 +14,9 @@ const routes: Routes = [
   { path: 'opcoes', loadChildren: './opcoes/opcoes.module#OpcoesPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'fexercicios', loadChildren: './fexercicios/fexercicios.module#FexerciciosPageModule' },
+  { path: 'fpaciente', loadChildren: './fpaciente/fpaciente.module#FpacientePageModule' },
+  { path: 'ftexturas', loadChildren: './ftexturas/ftexturas.module#FtexturasPageModule' },
+  { path: 'futensilios', loadChildren: './futensilios/futensilios.module#FutensiliosPageModule' },
 ];
 @NgModule({
   imports: [

@@ -44,7 +44,7 @@ export class FTab1Page {
   }
 
   ionViewWillEnter(){
-    console.log(this.userProfile)
+    //console.log(this.userProfile)
     this.userservice
     .getUserProfile().get()
     .then( userProfileSnapshot => {

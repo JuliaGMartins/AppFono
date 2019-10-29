@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { FTab2Page } from './ftab2.page';
 
-describe('Tab2Page', () => {
+describe('FTab2Page', () => {
   let component: FTab2Page;
   let fixture: ComponentFixture<FTab2Page>;
 

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ExerciciosService {
-  public static listaEx: any;
+  //public static listaEx: any;
   public static paciente: any;
   constructor() { }
 }

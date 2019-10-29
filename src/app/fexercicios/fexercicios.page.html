@@ -1,13 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>fexercicios</ion-title>
+    <ion-title>
+      <span text-color="my-custom-color"> App Fono </span>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let e of userProfile?.pacientes?.exercicio">
-    <ion-item>
-        <ion-button fill = "clear" class = "itemBtns"><ion-label>{{e.descricao}}</ion-label></ion-button>
-      </ion-item>
-</ion-list>
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Exercicios</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let exercicios of listaEx">
+      <ion-card>
+        <img [src]="exercicios.url">
+        <ion-card-header>
+          <ion-card-title>{{exercicios.titulo}}</ion-card-title>
+          <ion-card-subtitle>Descrição: {{exercicios.descricao}}</ion-card-subtitle>
+          <ion-card-subtitle>Observação: {{exercicios.observacao}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button color="primary" expand="block" shape="round">Incluir
+              <ion-checkbox *ngIf="listaPacienteEx(exercicios.id) else block" slot="end" value="Incluir" checked></ion-checkbox>
+                <ng-template #block>
+                  <ion-checkbox slot="end" value="Incluir" unchecked></ion-checkbox>
+                </ng-template>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>

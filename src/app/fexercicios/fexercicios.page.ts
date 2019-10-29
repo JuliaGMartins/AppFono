@@ -3,7 +3,9 @@ import { UserService } from '../services/user.service';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { environment } from 'src/environments/environment';
 import { ExerciciosService } from '../services/exercicios.service';
+//firebase.initializeApp(environment.firebase);
 
 @Component({
   selector: 'app-fexercicios',
@@ -11,49 +13,49 @@ import { ExerciciosService } from '../services/exercicios.service';
   styleUrls: ['./fexercicios.page.scss'],
 })
 export class FexerciciosPage implements OnInit {
-
-  public userProfile: any;
-  public pacienteProfileID: any;
-  public pacienteProfile: any;
-  public exercicioProfileID: any;
-  public exercicioProfile: any;
-  public paciente: any;
   public listaEx: any;
+  public paciente: any;
+  public listaDoPaciente: any;
 
-  constructor(private userservice: UserService) {}
+  constructor() {
+    this.listaEx = [];
+    this.listaDoPaciente = [];
+    this.paciente = null;
+  }
   ngOnInit() {
   }
-
   ionViewWillEnter() {
-    this.listaEx = [];
+    this.paciente = ExerciciosService.paciente;
     firebase.firestore().collection(`exercicios`).get().then(ex =>{
       ex.forEach(exercicio =>{
         this.listaEx.push(exercicio.data());
+
+        this.paciente.listaPaciente = [];
+        this.paciente.exercicios.forEach(element => {
+          firebase.firestore().doc(`/exercicios/${element.id}`).get().then(exercicios => {
+            this.paciente.listaPaciente.push(exercicios.data());
+            console.log(this.paciente.exercicios);
+          })
+        })
       });
     });
+    //console.log(this.listaEx);
+    this.listaDoPaciente = this.paciente.exercicios;
 
-
-    // this.userservice
-    //   .getUserProfile().get()
-    //   .then(userProfileSnapshot => {
-    //     this.userProfile = userProfileSnapshot.data();
-    //     this.userProfile.pacientes = [];
-    //     this.userProfile.paciente.forEach(element => {
-    //       firebase.firestore().doc(`/contas/${element.id}`).get().then(paciente => {
-    //         this.userProfile.pacientes.push(paciente.data());
-    //         //console.log(this.userservice)
-    //         //console.log(paciente.data())
-    //       });
-    //     });
-    //     // console.log(this.userProfile.pacientes)
-    //     // this.userProfile.pacientes.exercicio = [];
-    //     // this.userProfile.pacientes.exercicios.forEach(element => {
-    //     //   firebase.firestore().doc(`/exercicios/${element.id}`).get().then(exercicios => {
-    //     //     this.userProfile.pacientes.exercicio.push(exercicios.data());
-    //     //     console.log(exercicios.data())
-    //     //   });
-    //     // });
-    //   });
+    
+    //console.log(this.paciente);
   }
-
+  listaPacienteEx(id: any){
+    let i;
+    for(i=0; i<this.listaDoPaciente.length; i++){
+      if(this.listaDoPaciente[i].id==id){
+        
+        return true;
+      }
+    }
+    // console.log("nem encontrei véi");
+    // console.log("id paciente", this.listaDoPaciente[i-1].id);
+    // console.log("id", id);
+    return false;
+  }
 }

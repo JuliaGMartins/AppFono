@@ -21,9 +21,9 @@ export class FTab2Page {
 
   constructor(private userservice: UserService, private router: Router) {}
 
-  fexercicios(paciente: any){
+  fpaciente(paciente: any){
     ExerciciosService.paciente = paciente;
-    this.router.navigate(['fexercicios']);
+    this.router.navigate(['fpaciente']);
 }
 
   ionViewWillEnter() {
@@ -35,7 +35,7 @@ export class FTab2Page {
         this.userProfile.paciente.forEach(element => {
           firebase.firestore().doc(`/contas/${element.id}`).get().then(paciente => {
             this.userProfile.pacientes.push(paciente.data());
-            //console.log(this.userservice)
+            //console.log(paciente.data());
           });
         });
         // this.userProfile.pacientes.exercicio = [];

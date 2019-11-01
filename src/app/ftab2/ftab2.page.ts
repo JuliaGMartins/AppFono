@@ -4,7 +4,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { Router } from '@angular/router';
-import { ExerciciosService } from '../services/exercicios.service';
+import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
 
 @Component({
   selector: 'app-ftab2',
@@ -22,7 +22,7 @@ export class FTab2Page {
   constructor(private userservice: UserService, private router: Router) {}
 
   fpaciente(paciente: any){
-    ExerciciosService.paciente = paciente;
+    FexerciciosPacienteService.paciente = paciente;
     this.router.navigate(['fpaciente']);
 }
 
@@ -35,9 +35,10 @@ export class FTab2Page {
         this.userProfile.paciente.forEach(element => {
           firebase.firestore().doc(`/contas/${element.id}`).get().then(paciente => {
             this.userProfile.pacientes.push(paciente.data());
-            //console.log(paciente.data());
           });
         });
+            //console.log(this.userProfile.pacientes);
+            
         // this.userProfile.pacientes.exercicio = [];
         // this.userProfile.pacientes.exercicios.forEach(element => {
         //   firebase.firestore().doc(`/exercicios/${element.id}`).get().then(exercicios => {

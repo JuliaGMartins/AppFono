@@ -16,11 +16,11 @@
   <ion-list>
     <ion-item *ngFor="let exercicios of listaEx">
       <ion-card>
-        <img [src]="exercicios.url">
+        <img [src]="exercicios.data.url">
         <ion-card-header>
-          <ion-card-title>{{exercicios.titulo}}</ion-card-title>
-          <ion-card-subtitle>Descrição: {{exercicios.descricao}}</ion-card-subtitle>
-          <ion-card-subtitle>Observação: {{exercicios.observacao}}</ion-card-subtitle>
+          <ion-card-title>{{exercicios.data.titulo}}</ion-card-title>
+          <ion-card-subtitle>Descrição: {{exercicios.data.descricao}}</ion-card-subtitle>
+          <ion-card-subtitle>Observação: {{exercicios.data.observacao}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           <ion-button color="primary" expand="block" shape="round">Incluir

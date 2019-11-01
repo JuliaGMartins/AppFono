@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Paciente } from '../interfaces/paciente';
+//import { Paciente } from '../services/fexercicios';
 import { Subscription } from 'rxjs';
-import { PacienteService } from 'src/app/services/paciente.service';
+//import { PacienteService } from 'src/app/services/paciente.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -13,19 +13,19 @@ import { UserService } from '../services/user.service';
   styleUrls: ['ftab1.page.scss']
 })
 export class FTab1Page {
-  private pacientes = new Array<Paciente>();
+  //private pacientes = new Array<Paciente>();
   private pacienteSubscription: Subscription;
   public userProfile: any;
 
   constructor(private menuCtrl: MenuController, 
     private router: Router, 
     private authService: AuthService,
-    private pacienteService: PacienteService,
+    //private pacienteService: PacienteService,
     private userservice: UserService,
     ){
-      this.pacienteSubscription = this.pacienteService.getPacientes().subscribe(data => {
-        this.pacientes = data;
-            });
+      //this.pacienteSubscription = this.pacienteService.getPacientes().subscribe(data => {
+        //this.pacientes = data;
+            //});
     };
 
   meuperfil(){

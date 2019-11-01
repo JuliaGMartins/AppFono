@@ -3,9 +3,9 @@ import { UserService } from '../services/user.service';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { ExerciciosService } from '../services/exercicios.service';
+import { FexerciciosPacienteService} from '../services/fexercicios-paciente.service';
 import { Router } from '@angular/router';
-import { Paciente } from '../interfaces/paciente';
+//import { Paciente } from '../services/fexercicios-paciente.service';
 //import { timingSafeEqual } from 'crypto';
 
 @Component({
@@ -29,7 +29,7 @@ export class FpacientePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.paciente = ExerciciosService.paciente;
+    this.paciente = FexerciciosPacienteService.paciente;
     this.listaEx = [];
     // firebase.firestore().collection(`exercicios`).get().then(ex =>{
     //   ex.forEach(exercicio =>{
@@ -42,15 +42,15 @@ export class FpacientePage implements OnInit {
   }
 
   fexercicios(paciente: any){
-    ExerciciosService.paciente = paciente;
+    FexerciciosPacienteService.paciente = paciente;
     this.router.navigate(['fexercicios']);
 }
   ftexturas(paciente: any){
-    ExerciciosService.paciente = paciente;
+    FexerciciosPacienteService.paciente = paciente;
     this.router.navigate(['ftexturas']);
 }
   futensilios(paciente: any){
-    ExerciciosService.paciente = paciente;
+    FexerciciosPacienteService.paciente = paciente;
     this.router.navigate(['futensilios']);
 }
 

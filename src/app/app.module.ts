@@ -1,43 +1,27 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { Component } from '@angular/core';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
+})
+export class AppComponent {
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar
+  ) {
+    this.initializeApp();
+  }
 
-import { AngularFireModule } from '@angular/fire';
-import { environment } from 'src/environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { UserService } from './services/user.service';
-import { LoginPage } from './login/login.page';
-
-
-
-
-
-@NgModule(
-  {
-    declarations: [AppComponent],
-    entryComponents: [],
-    imports: [
-      BrowserModule,
-      IonicModule.forRoot(),
-      AppRoutingModule,
-      AngularFireModule.initializeApp(environment.firebase),
-      AngularFireAuthModule,
-      AngularFirestoreModule
-    ],
-    providers: [
-      StatusBar,
-      SplashScreen,
-      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-      UserService
-    ],
-    bootstrap: [AppComponent]
-  })
-export class AppModule { }
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+    });
+  }
+}

@@ -6,14 +6,16 @@ import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
-  { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule', canActivate: [AuthGuard] },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [LoginGuard] },
   { path: '', redirectTo: 'ptabs', pathMatch: 'full'},
   { path: 'app', loadChildren: './ptabs/ptabs.module#PTabsPageModule', canActivate: [AuthGuard] },
   { path: '', redirectTo: 'ftabs', pathMatch: 'full'},
   { path: 'app', loadChildren: './ftabs/ftabs.module#FTabsPageModule', canActivate: [AuthGuard] },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [LoginGuard] },
+  { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule', canActivate: [AuthGuard] },
   { path: 'opcoes', loadChildren: './opcoes/opcoes.module#OpcoesPageModule', canActivate: [AuthGuard] },
-  { path: 'ajuda', loadChildren: './ajuda/ajuda.module#AjudaPageModule', canActivate: [AuthGuard] },  
+  { path: 'ajuda', loadChildren: './ajuda/ajuda.module#AjudaPageModule', canActivate: [AuthGuard] },
+  { path: 'cadastro', loadChildren: './cadastro/cadastro.module#CadastroPageModule' },
+ 
   ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

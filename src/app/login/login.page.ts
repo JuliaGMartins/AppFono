@@ -35,12 +35,12 @@ export class LoginPage implements OnInit {
       .getUserProfile().get()
       .then( userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.data();
-
-      if (!this.userProfile.isfono){
-        this.router.navigateByUrl('app/ptabs');
+      alert(this.userProfile.isfono);
+      /*if (!this.userProfile.isfono){
+        this.router.navigateByUrl('app/ptabs/ptab1');
       }else{
-        this.router.navigateByUrl('app/ftabs');
-      }
+        this.router.navigateByUrl('app/ftabs/ftab1');
+      }*/
       
     });
     } catch (error) {

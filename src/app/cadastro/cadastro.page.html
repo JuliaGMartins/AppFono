@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-color="my-custom-color">AppFono</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating">Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="nome"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin-top">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="userRegister.email"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin-top">
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input type="password" [(ngModel)]="userRegister.password"></ion-input>
+  </ion-item>
+  <ion-button class="ion-margin-top" expand="full" color="primary"(click)="cadastro()">Cadastrar</ion-button>
+</ion-content>

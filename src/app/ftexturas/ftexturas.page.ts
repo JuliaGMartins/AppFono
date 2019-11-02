@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { ExerciciosService } from '../services/exercicios.service';
+import { Router } from '@angular/router';
+import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-ftexturas',
@@ -8,20 +12,53 @@ import { ExerciciosService } from '../services/exercicios.service';
   styleUrls: ['./ftexturas.page.scss'],
 })
 export class FtexturasPage implements OnInit {
-  public listaTex: any[];
+  public listaTex: any;
   public paciente: any;
+  public listaTexPaciente: any;
+  public fexercicios: any;
+  public detector: ChangeDetectorRef;
 
-  constructor() { }
-  ionViewWillEnter() {
+  constructor(private d: ChangeDetectorRef, private router: Router) { 
     this.listaTex = [];
+    this.listaTexPaciente = new Set();
+    this.detector = d;
+  }
+  ionViewWillEnter() {
+    this.paciente = FexerciciosPacienteService.paciente;
+    this.paciente.texturas.forEach(element => {
+        this.listaTexPaciente.add(element.id.trim());
+      });
     firebase.firestore().collection(`texturas`).get().then(ex =>{
-      ex.forEach(texturas =>{
-        this.listaTex.push(texturas.data());
+      ex.forEach(textura =>{
+        let exObj = {
+          'id': textura.id,
+          'data': textura.data()
+        };
+        this.listaTex.push(exObj);
       });
     });
-    this.paciente = ExerciciosService.paciente;
   }
   ngOnInit() {
   }
 
+  listaPacienteTex(id: any){
+    for(let ex of this.listaTexPaciente.values()){
+      if(ex==id){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  MudaListaDoPaciente(remove: boolean, id: any){
+    if(remove){
+      this.listaTexPaciente.delete(id);
+    }else{
+      this.listaTexPaciente.add(id);
+    }
+  }
+
+  Salvar(){
+    this.router.navigate(['fpaciente']);
+  }
 }

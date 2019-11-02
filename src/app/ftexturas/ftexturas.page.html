@@ -1,31 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Texturas</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-  <!-- <ion-card color="primary">
-    <ion-card-header>
-      <ion-card-title>Texturas</ion-card-title>
-    </ion-card-header>
-  </ion-card> -->
-
-  <ion-list>
-    <ion-item *ngFor="let t of listaTex">
-      <ion-card>
-        <img [src]="t.url">
-        <ion-card-header>
-          <ion-card-title>{{t.titulo}}</ion-card-title>
-          <ion-card-subtitle>Descrição:{{t.descricao}}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-button color="primary" expand="block" shape="round">Incluir
-            <ion-checkbox slot="end" value="Incluir" unchecked></ion-checkbox>
-          </ion-button>
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
-  </ion-list>
-</ion-content>
+    <ion-toolbar>
+      <ion-title>
+        <span text-color="my-custom-color"> App Fono </span>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card color="primary">
+      <ion-card-header>
+        <ion-card-title>Texturas</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  
+    <ion-list>
+      <ion-item *ngFor="let texturas of listaTex">
+        <ion-card>
+          <img [src]="texturas.data.url">
+          <ion-card-header>
+            <ion-card-title>{{texturas.data.titulo}}</ion-card-title>
+            <ion-card-subtitle>Descrição: {{texturas.data.descricao}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+              <ion-button *ngIf="listaPacienteTex(texturas.id) else block" color="primary"
+                            expand="block" shape="round" (click)="MudaListaDoPaciente(true, texturas.id)">
+                <span id="troca_nome">Retirar</span>
+                </ion-button>
+                <ng-template #block>
+                 <ion-button color="medium" expand="block" shape="round"
+                 (click)="MudaListaDoPaciente(false, texturas.id)">Incluir
+                  </ion-button>
+                </ng-template>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-button color="success"expand="block" shape="round" (click)="Salvar()">Salvar</ion-button>
+    </ion-list>
+  </ion-content>

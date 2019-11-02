@@ -23,14 +23,18 @@
           <ion-card-subtitle>Observação: {{exercicios.data.observacao}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          <ion-button color="primary" expand="block" shape="round">Incluir
-              <ion-checkbox *ngIf="listaPacienteEx(exercicios.id) else block" slot="end" value="Incluir" checked></ion-checkbox>
-                <ng-template #block>
-                  <ion-checkbox slot="end" value="Incluir" unchecked></ion-checkbox>
-                </ng-template>
-          </ion-button>
+            <ion-button *ngIf="listaPacienteEx(exercicios.id) else block" color="primary"
+                          expand="block" shape="round" (click)="MudaListaDoPaciente(true, exercicios.id)">
+              <span id="troca_nome">Retirar</span>
+              </ion-button>
+              <ng-template #block>
+               <ion-button color="medium" expand="block" shape="round"
+               (click)="MudaListaDoPaciente(false, exercicios.id)">Incluir
+                </ion-button>
+              </ng-template>
         </ion-card-content>
       </ion-card>
     </ion-item>
+    <ion-button color="success"expand="block" shape="round" (click)="Salvar()">Salvar</ion-button>
   </ion-list>
 </ion-content>

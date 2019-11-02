@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { environment } from 'src/environments/environment';
 import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
-import { Subscription } from 'rxjs';
-import { fexerciciosService } from '../services/fexercicios.service';
-import { fexercicios } from 'src/app/interfaces/fexercicios';
+import {ChangeDetectorRef} from '@angular/core';
+import { Router } from '@angular/router';
+
 //firebase.initializeApp(environment.firebase);
 
 @Component({
@@ -19,13 +17,13 @@ export class FexerciciosPage implements OnInit {
   public listaEx: any;
   public paciente: any;
   public listaDoPaciente: any;
-  private listaPacienteSubscription: Subscription;
-  private fexerciciosService: fexerciciosService;
   public fexercicios: any;
+  public detector: ChangeDetectorRef;
 
-  constructor() {
+  constructor(private d: ChangeDetectorRef, private router: Router) {
     this.listaEx = [];
-    this.listaDoPaciente = [];
+    this.listaDoPaciente = new Set();
+    this.detector = d;
     //this.paciente = null;
   }
   ngOnInit() {
@@ -37,7 +35,7 @@ export class FexerciciosPage implements OnInit {
     //   console.log(this.fexercicios);
     this.paciente = FexerciciosPacienteService.paciente;
     this.paciente.exercicios.forEach(element => {
-        this.listaDoPaciente.push(element.id.trim());
+        this.listaDoPaciente.add(element.id.trim());
       });
     this.paciente = FexerciciosPacienteService.paciente;
     firebase.firestore().collection(`exercicios`).get().then(ex =>{
@@ -47,8 +45,6 @@ export class FexerciciosPage implements OnInit {
           'data': exercicio.data()
         };
         this.listaEx.push(exObj);
-        // this.listaEx.push(exercicio.id);
-        
       });
     });
 
@@ -61,18 +57,6 @@ export class FexerciciosPage implements OnInit {
         //     this.paciente.exer.push(exer.data());
         //   });
         // });
-        this.paciente.exercicios.forEach(element => {
-        firebase.firestore().collection("exercicios").doc(element.id)
-        .get()
-        .then((doc) => {
-         // console.log(doc.id, " => ", doc.data());
-            
-        })
-        .catch(function(error) {
-            //console.log("Error getting documents: ", error);
-        });
-
-      });
     //console.log("paciente exercicios id", this.paciente.exercicios);
     //console.log("paciente exercicios completo!", this.paciente.exer);
 
@@ -80,13 +64,27 @@ export class FexerciciosPage implements OnInit {
     //console.log(this.paciente);
   }
   listaPacienteEx(id: any){
-    let i;
-    for(i=0; i<this.listaDoPaciente.length; i++){
+    //for(i=0; i<this.listaDoPaciente.length; i++){
       //console.log(this.listaDoPaciente[i], "=========", id);
-      if(this.listaDoPaciente[i]==id){
+    for(let ex of this.listaDoPaciente.values()){
+      if(ex==id){
         return true;
       }
     }
     return false;
+  }
+
+  MudaListaDoPaciente(remove: boolean, id: any){
+    if(remove){
+      this.listaDoPaciente.delete(id);
+    }else{
+      this.listaDoPaciente.add(id);
+    }
+    //console.log(this.listaDoPaciente);
+    //this.d.detectChanges();
+  }
+
+  Salvar(){
+    this.router.navigate(['fpaciente']);
   }
 }

@@ -5,6 +5,7 @@ import 'firebase/firestore';
 import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
 import {ChangeDetectorRef} from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 //firebase.initializeApp(environment.firebase);
 
@@ -19,11 +20,15 @@ export class FexerciciosPage implements OnInit {
   public listaDoPaciente: any;
   public fexercicios: any;
   public detector: ChangeDetectorRef;
+  public listaArray: any[];
+  public userProfile: any;
+  public idp: any;
 
-  constructor(private d: ChangeDetectorRef, private router: Router) {
+  constructor(private userservice: UserService, private d: ChangeDetectorRef, private router: Router) {
     this.listaEx = [];
     this.listaDoPaciente = new Set();
     this.detector = d;
+    this.listaArray = [];
     //this.paciente = null;
   }
   ngOnInit() {
@@ -34,8 +39,10 @@ export class FexerciciosPage implements OnInit {
     //   });
     //   console.log(this.fexercicios);
     this.paciente = FexerciciosPacienteService.paciente;
+    this.idp = FexerciciosPacienteService.id;
+    //console.log(this.idp);
     this.paciente.exercicios.forEach(element => {
-        this.listaDoPaciente.add(element.id.trim());
+        this.listaDoPaciente.add(element);
       });
     this.paciente = FexerciciosPacienteService.paciente;
     firebase.firestore().collection(`exercicios`).get().then(ex =>{
@@ -80,11 +87,20 @@ export class FexerciciosPage implements OnInit {
     }else{
       this.listaDoPaciente.add(id);
     }
-    //console.log(this.listaDoPaciente);
-    //this.d.detectChanges();
   }
-
   Salvar(){
+    this.listaDoPaciente.forEach(s => this.listaArray.push(s));
+    firebase.firestore().collection(`contas`).doc(this.idp).update({
+      exercicios: this.listaArray
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+  //IDEIA PARA ATUALIZAR A LISTA QUE DEU TERRIVELMENTE ERRADO
+    FexerciciosPacienteService.paciente.exercicios = this.listaArray;
     this.router.navigate(['fpaciente']);
   }
 }

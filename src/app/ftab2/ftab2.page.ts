@@ -21,31 +21,30 @@ export class FTab2Page {
 
   constructor(private userservice: UserService, private router: Router) {}
 
-  fpaciente(paciente: any){
+  fpaciente(paciente: any, id:any){ 
     FexerciciosPacienteService.paciente = paciente;
+    //aqui
+    FexerciciosPacienteService.id = id;
+    //console.log(id);
     this.router.navigate(['fpaciente']);
 }
 
   ionViewWillEnter() {
-    this.userservice
-      .getUserProfile().get()
+    this.userservice.getUserProfile().get()
       .then(userProfileSnapshot => {
         this.userProfile = userProfileSnapshot.data();
         this.userProfile.pacientes = [];
         this.userProfile.paciente.forEach(element => {
           firebase.firestore().doc(`/contas/${element.id}`).get().then(paciente => {
-            this.userProfile.pacientes.push(paciente.data());
+              let pacObj = {
+                'id': paciente.id,
+                'data': paciente.data()
+              };
+            this.userProfile.pacientes.push(pacObj);
+      //console.log(this.userProfile.pacientes[0].id);
+      //console.log(this.userProfile.pacientes[0].data);
           });
         });
-            //console.log(this.userProfile.pacientes);
-            
-        // this.userProfile.pacientes.exercicio = [];
-        // this.userProfile.pacientes.exercicios.forEach(element => {
-        //   firebase.firestore().doc(`/exercicios/${element.id}`).get().then(exercicios => {
-        //     this.userProfile.pacientes.exercicio.push(exercicios.data());
-        //     console.log(exercicios.data())
-        //   });
-        // });
       });
   }
 }

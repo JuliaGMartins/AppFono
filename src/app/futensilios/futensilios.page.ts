@@ -3,6 +3,8 @@ import * as firebase from 'firebase/app';
 import { ExerciciosService } from '../services/exercicios.service';
 import { Router } from '@angular/router';
 import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-futensilios',
@@ -15,16 +17,21 @@ export class FutensiliosPage implements OnInit {
   public listaUtPaciente: any;
   public fexercicios: any;
   public detector: ChangeDetectorRef;
+  public listaArray: any;
+  public id: any;
 
   constructor(private d: ChangeDetectorRef, private router: Router) { 
     this.listaUt = [];
     this.listaUtPaciente = new Set();
     this.detector = d;
+    this.listaArray = [];
   }
   ionViewWillEnter() {
     this.paciente = FexerciciosPacienteService.paciente;
-    this.paciente.texturas.forEach(element => {
-        this.listaUtPaciente.add(element.id.trim());
+    this.id = FexerciciosPacienteService.id;
+    this.paciente.utensilios.forEach(element => {
+      this.listaUtPaciente.add(element);
+      //this.listaUtPaciente.add(element.id.trim());
       });
     firebase.firestore().collection(`utensilios`).get().then(ut =>{
       ut.forEach(utensilio =>{
@@ -35,6 +42,7 @@ export class FutensiliosPage implements OnInit {
         this.listaUt.push(exObj);
       });
     });
+    
   }
   ngOnInit() {
   }
@@ -57,6 +65,17 @@ export class FutensiliosPage implements OnInit {
   }
 
   Salvar(){
+    this.listaUtPaciente.forEach(s => this.listaArray.push(s));
+    firebase.firestore().collection(`contas`).doc(FexerciciosPacienteService.id).update({
+      utensilios: this.listaArray
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+    FexerciciosPacienteService.paciente.utensilios = this.listaArray;
     this.router.navigate(['fpaciente']);
   }
 }

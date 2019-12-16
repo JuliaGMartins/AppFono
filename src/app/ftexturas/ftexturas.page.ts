@@ -17,16 +17,21 @@ export class FtexturasPage implements OnInit {
   public listaTexPaciente: any;
   public fexercicios: any;
   public detector: ChangeDetectorRef;
+  public listaArray: any;
+  public id: any;
 
   constructor(private d: ChangeDetectorRef, private router: Router) { 
     this.listaTex = [];
     this.listaTexPaciente = new Set();
     this.detector = d;
+    this.listaArray = [];
   }
   ionViewWillEnter() {
     this.paciente = FexerciciosPacienteService.paciente;
+    this.id = FexerciciosPacienteService.id;
     this.paciente.texturas.forEach(element => {
-        this.listaTexPaciente.add(element.id.trim());
+      this.listaTexPaciente.add(element);
+      //this.listaTexPaciente.add(element.id.trim());
       });
     firebase.firestore().collection(`texturas`).get().then(ex =>{
       ex.forEach(textura =>{
@@ -57,8 +62,19 @@ export class FtexturasPage implements OnInit {
       this.listaTexPaciente.add(id);
     }
   }
-
   Salvar(){
+    this.listaTexPaciente.forEach(s => this.listaArray.push(s));
+    firebase.firestore().collection(`contas`).doc(this.id).update({
+      texturas: this.listaArray
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+  //IDEIA PARA ATUALIZAR A LISTA QUE DEU TERRIVELMENTE ERRADO
+    FexerciciosPacienteService.paciente.texturas = this.listaArray;
     this.router.navigate(['fpaciente']);
   }
 }

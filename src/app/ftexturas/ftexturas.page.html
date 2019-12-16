@@ -22,18 +22,18 @@
             <ion-card-subtitle>Descrição: {{texturas.data.descricao}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-              <ion-button *ngIf="listaPacienteTex(texturas.id) else block" color="primary"
-                            expand="block" shape="round" (click)="MudaListaDoPaciente(true, texturas.id)">
-                <span id="troca_nome">Retirar</span>
+            <ion-button *ngIf="listaPacienteTex(texturas.id) else block" color="primary"
+                          expand="block" shape="round" (click)="MudaListaDoPaciente(true, texturas.id)">
+              <span id="troca_nome">Retirar</span>
+              </ion-button>
+              <ng-template #block>
+               <ion-button color="medium" expand="block" shape="round"
+               (click)="MudaListaDoPaciente(false, texturas.id)">Incluir
                 </ion-button>
-                <ng-template #block>
-                 <ion-button color="medium" expand="block" shape="round"
-                 (click)="MudaListaDoPaciente(false, texturas.id)">Incluir
-                  </ion-button>
-                </ng-template>
-          </ion-card-content>
-        </ion-card>
-      </ion-item>
-      <ion-button color="success"expand="block" shape="round" (click)="Salvar()">Salvar</ion-button>
-    </ion-list>
-  </ion-content>
+              </ng-template>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-button color="success"expand="block" shape="round" (click)="Salvar()">Salvar</ion-button>
+  </ion-list>
+</ion-content>

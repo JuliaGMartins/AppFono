@@ -12,11 +12,14 @@ const routes: Routes = [
   { path: '', redirectTo: 'ftabs', pathMatch: 'full'},
   { path: 'app', loadChildren: './ftabs/ftabs.module#FTabsPageModule', canActivate: [AuthGuard] },
   { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule', canActivate: [AuthGuard] },
-  { path: 'opcoes', loadChildren: './opcoes/opcoes.module#OpcoesPageModule', canActivate: [AuthGuard] },
   { path: 'ajuda', loadChildren: './ajuda/ajuda.module#AjudaPageModule', canActivate: [AuthGuard] },
-  { path: 'cadastro', loadChildren: './cadastro/cadastro.module#CadastroPageModule' },
- 
+  { path: 'fpaciente', loadChildren: './fpaciente/fpaciente.module#FpacientePageModule', canActivate: [AuthGuard] },
+  { path: 'ftexturas', loadChildren: './ftexturas/ftexturas.module#FtexturasPageModule', canActivate: [AuthGuard] },
+  { path: 'futensilios', loadChildren: './futensilios/futensilios.module#FutensiliosPageModule', canActivate: [AuthGuard] },
+  { path: 'fexercicios', loadChildren: './fexercicios/fexercicios.module#FexerciciosPageModule', canActivate: [AuthGuard] },
+  { path: 'transicao', loadChildren: './transicao/transicao.module#TransicaoPageModule', canActivate: [AuthGuard] }
   ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

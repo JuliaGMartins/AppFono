@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
+  
   public userProfile: any;
 
   constructor(
@@ -19,14 +20,12 @@ export class LoginGuard implements CanActivate {
     return new Promise(resolve => {
       this.authService.getAuth().onAuthStateChanged(user => {
         if (user){
-          this.usuario();
-          if(this.userProfile.isfono){
+          //this.router.navigate(['transicao']);
+          if (this.usuario().isfono){
             this.router.navigateByUrl("/app/ftabs/ftab1");
-          } else {
+          }else{
             this.router.navigateByUrl("/app/ptabs/ptab1");
           }
-        } else {
-          this.router.navigate(['login']);
         }
         resolve(!user ? true : false);
       })
@@ -39,7 +38,6 @@ export class LoginGuard implements CanActivate {
     .then( userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.data();
     });
-    console.log(this.userProfile)
+    return this.userProfile;
   }
-
 }

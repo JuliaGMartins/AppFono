@@ -37,9 +37,6 @@ export class PTab1Page {
   irajuda() {
     this.router.navigate(['ajuda']);
   }
-  iropcoes() {
-    this.router.navigate(['cadastro']);
-  }
 
   ionViewWillEnter(){
     this.userservice

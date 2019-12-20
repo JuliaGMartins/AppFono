@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from '../interfaces/user';
-import { Alert } from 'selenium-webdriver';
+import { database } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private afa: AngularFireAuth, private alert: Alert) { }
+  private data_uid;
+
+  constructor(private afa: AngularFireAuth) { }
 
   login(user: User) {
     return this.afa.auth.signInWithEmailAndPassword(user.email, user.password);
@@ -22,10 +24,13 @@ export class AuthService {
     return this.afa.auth;
   }
 
-  register(user: User){
-    this.afa.auth.createUserWithEmailAndPassword(user.email, user.password)
+  register(User: User){
+    this.afa.auth.createUserWithEmailAndPassword(User.email, User.password)
+    .then(data=>{
+      return data.user.uid
+    })
     .then(() => {
       this.afa.auth.currentUser.sendEmailVerification();
-      })
+      })    
   }    
 }

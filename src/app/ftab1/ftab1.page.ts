@@ -31,8 +31,8 @@ export class FTab1Page {
   perfil(){
     this.router.navigate(['perfil']);
 }
-  opcoes(){
-    this.router.navigate(['opcoes']);
+  ajuda(){
+    this.router.navigate(['ajuda']);
 }
 
   async logout() {

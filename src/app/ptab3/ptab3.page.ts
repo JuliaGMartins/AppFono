@@ -19,15 +19,18 @@ export class PTab3Page {
         this.userProfile = userProfileSnapshot.data();
         this.userProfile.textura = [];
         this.userProfile.texturas.forEach(element => {
-          firebase.firestore().doc(`/texturas/${element.id}`).get().then(texturas => {
+          firebase.firestore().doc(`/texturas/${element}`).get().then(texturas => {
             this.userProfile.textura.push(texturas.data());
+          });
+        });
 
         this.userProfile.utensilio = [];
         this.userProfile.utensilios.forEach(element => {
-           firebase.firestore().doc(`/utensilios/${element.id}`).get().then(utensilios => {
+           firebase.firestore().doc(`/utensilios/${element}`).get().then(utensilios => {
              this.userProfile.utensilio.push(utensilios.data());
-              });
-            });
+             
+              
+            
           });
         });
       });

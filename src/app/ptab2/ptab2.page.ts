@@ -19,12 +19,21 @@ export class PTab2Page {
         this.userProfile = userProfileSnapshot.data();
         this.userProfile.exercicio = [];
         this.userProfile.exercicios.forEach(element => {
-          firebase.firestore().doc(`/exercicios/${element.id}`).get().then(exercicios => {
+          firebase.firestore().doc(`/exercicios/${element}`).get().then(exercicios => {
             this.userProfile.exercicio.push(exercicios.data());
+            console.log(this.userProfile)
           });
-        });
+        // this.userProfile.exercicios.forEach(element => {
+        //   firebase.firestore().doc(`/exercicios/${element}`).get().then(exercicios => {
+        //       let pacObj = {
+        //         'id': exercicios.id,
+        //         'data': exercicios.data()
+        //       };
+        //       this.userProfile.exercicio.push(pacObj);
+        //       console.log(this.userProfile)
+        // });
       });
-  }
+  })}
   
 
 ngOnDestroy() {

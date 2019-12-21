@@ -23,7 +23,7 @@ export class FTab2Page {
 
   fpaciente(paciente: any, id:any){
     FexerciciosPacienteService.paciente = paciente;
-    FexerciciosPacienteService.id = id;
+    FexerciciosPacienteService.id = paciente.id;
     this.router.navigate(['fpaciente']);
 }
 

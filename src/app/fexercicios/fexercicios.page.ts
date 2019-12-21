@@ -40,6 +40,7 @@ export class FexerciciosPage implements OnInit {
     //   console.log(this.fexercicios);
     this.paciente = FexerciciosPacienteService.paciente;
     this.idp = FexerciciosPacienteService.id;
+    console.log(this.idp);
     if(this.paciente.exercicios != null){
       this.paciente.exercicios.forEach(element => {
         this.listaDoPaciente.add(element);

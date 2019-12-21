@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <span text-color="my-custom-color"> Deglutindo </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Texturas Alimentares</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let text of userProfile?.textura">
+      <ion-card>
+        <img [src]="text.url">
+        <ion-card-header>
+          <ion-card-title>{{text.titulo}}</ion-card-title>
+          <ion-card-subtitle>Exemplo: {{text.descricao}}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Utensílios</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let uten of userProfile?.utensilio">
+      <ion-card>
+        <img [src]="uten.url">
+        <ion-card-header>
+          <ion-card-title>{{uten.descricao}}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

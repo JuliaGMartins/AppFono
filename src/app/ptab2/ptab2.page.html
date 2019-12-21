@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <span text-color="my-custom-color"> Deglutindo </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Exercicios</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let exer of userProfile?.exercicio">
+      <ion-card>
+        <img [src]="exer.url">
+        <ion-card-header>
+          <ion-card-title>{{exer.titulo}}</ion-card-title>
+          <ion-card-subtitle>Descrição: {{exer.descricao}}</ion-card-subtitle>
+          <ion-card-subtitle *ngIf="exer.observacao!=null">Observação: {{exer.observacao}}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>

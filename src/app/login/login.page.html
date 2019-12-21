@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+        <span text-color="my-custom-color"> Deglutindo </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <img class="ion-padding" src="assets/img/icone.png">
+  <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input name="email" type="email" [(ngModel)]="userLogin.email"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input name="password" type="password" [(ngModel)]="userLogin.password"></ion-input>
+    </ion-item>
+  </form>
+  <ion-button color="primary"expand="block" shape="round" (click)="login()">Logar</ion-button>
+</ion-content>

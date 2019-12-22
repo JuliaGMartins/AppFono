@@ -1,10 +1,13 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        <span text-color="my-custom-color"> App Fono </span>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <span text-color="my-custom-color"> Deglutindo </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
   <ion-content>
     <ion-card color="primary">
@@ -34,6 +37,6 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-button color="success"expand="block" shape="round" (click)="Salvar()">Salvar</ion-button>
+      <ion-button color="primary"expand="block" shape="round" (click)="Salvar()">Salvar</ion-button>
     </ion-list>
   </ion-content>

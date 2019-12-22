@@ -22,7 +22,7 @@ export class FpacientePage implements OnInit {
   public exercicioProfile: any;
   public listaEx: any;
   public paciente: any;
-
+  public id: any
 
   constructor(private router: Router) {}
   ngOnInit() {
@@ -30,6 +30,9 @@ export class FpacientePage implements OnInit {
 
   ionViewWillEnter() {
     this.paciente = FexerciciosPacienteService.paciente;
+    this.id = FexerciciosPacienteService.id;
+    console.log(this.paciente);
+    console.log(this.id);
     this.listaEx = [];
     // firebase.firestore().collection(`exercicios`).get().then(ex =>{
     //   ex.forEach(exercicio =>{
@@ -53,4 +56,8 @@ export class FpacientePage implements OnInit {
     FexerciciosPacienteService.paciente = paciente;
     this.router.navigate(['futensilios']);
 }
+  finfo(paciente: any){
+    FexerciciosPacienteService.paciente = paciente;
+    this.router.navigate(['finfo']);
+  }
 }

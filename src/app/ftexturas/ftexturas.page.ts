@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ftexturas',
@@ -20,7 +21,7 @@ export class FtexturasPage implements OnInit {
   public listaArray: any;
   public id: any;
 
-  constructor(private d: ChangeDetectorRef, private router: Router) { 
+  constructor(private toastCtrl: ToastController, private d: ChangeDetectorRef, private router: Router) { 
     this.listaTex = [];
     this.listaTexPaciente = new Set();
     this.detector = d;
@@ -29,9 +30,10 @@ export class FtexturasPage implements OnInit {
   ionViewWillEnter() {
     this.paciente = FexerciciosPacienteService.paciente;
     this.id = FexerciciosPacienteService.id;
-    if(this.paciente.exercicios != null){
-      this.paciente.texturas.forEach(element => {
-        this.listaTexPaciente.add(element);
+    if(this.paciente.texturas != null){
+    this.paciente.texturas.forEach(element => {
+      this.listaTexPaciente.add(element);
+      //this.listaTexPaciente.add(element.id.trim());
       });
     }
     firebase.firestore().collection(`texturas`).get().then(ex =>{
@@ -64,18 +66,25 @@ export class FtexturasPage implements OnInit {
     }
   }
   Salvar(){
+    try{
     this.listaTexPaciente.forEach(s => this.listaArray.push(s));
     firebase.firestore().collection(`contas`).doc(this.id).update({
       texturas: this.listaArray
-  })
-  .then(function() {
-      console.log("Document successfully written!");
-  })
-  .catch(function(error) {
-      console.error("Error writing document: ", error);
   });
+      //console.log("Document successfully written!");
+      this.presentToast("Modificações salvas com sucesso!");
+  }
+  catch(error) {
+      console.error("Error writing document: ", error);
+      this.presentToast("Erro ao salvar!");
+  };
   //IDEIA PARA ATUALIZAR A LISTA QUE DEU TERRIVELMENTE ERRADO
     FexerciciosPacienteService.paciente.texturas = this.listaArray;
     this.router.navigate(['fpaciente']);
+  }
+
+  async presentToast(message: string) {
+    let toast = await this.toastCtrl.create({ message, duration: 2000 });
+    toast.present();
   }
 }

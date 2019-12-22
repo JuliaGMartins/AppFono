@@ -42,6 +42,5 @@ export class FTab2Page {
           });
         });
       });
-      console.log(this.userProfile.id);
     }
 }

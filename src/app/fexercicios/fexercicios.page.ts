@@ -3,9 +3,10 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
-import {ChangeDetectorRef} from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { ToastController } from '@ionic/angular';
 
 //firebase.initializeApp(environment.firebase);
 
@@ -24,7 +25,7 @@ export class FexerciciosPage implements OnInit {
   public userProfile: any;
   public idp: any;
 
-  constructor(private userservice: UserService, private d: ChangeDetectorRef, private router: Router) {
+  constructor(private toastCtrl: ToastController, private userservice: UserService, private d: ChangeDetectorRef, private router: Router) {
     this.listaEx = [];
     this.listaDoPaciente = new Set();
     this.detector = d;
@@ -40,14 +41,15 @@ export class FexerciciosPage implements OnInit {
     //   console.log(this.fexercicios);
     this.paciente = FexerciciosPacienteService.paciente;
     this.idp = FexerciciosPacienteService.id;
-    if(this.paciente.exercicios != null){
+    console.log(this.idp);
+    if (this.paciente.exercicios != null) {
       this.paciente.exercicios.forEach(element => {
         this.listaDoPaciente.add(element);
       });
     }
     this.paciente = FexerciciosPacienteService.paciente;
-    firebase.firestore().collection(`exercicios`).get().then(ex =>{
-      ex.forEach(exercicio =>{
+    firebase.firestore().collection(`exercicios`).get().then(ex => {
+      ex.forEach(exercicio => {
         let exObj = {
           'id': exercicio.id,
           'data': exercicio.data()
@@ -55,52 +57,59 @@ export class FexerciciosPage implements OnInit {
         this.listaEx.push(exObj);
       });
     });
-        this.paciente.exer = [];
-        // this.paciente.exercicios.forEach(element => {
-        //   console.log(element.id);
-        //   firebase.firestore().doc('exercicios/'+element.id).get().then(exer => {
-        //    // console.log(exer.data());
-        //     //console.log(exer.id)
-        //     this.paciente.exer.push(exer.data());
-        //   });
-        // });
+    this.paciente.exer = [];
+    // this.paciente.exercicios.forEach(element => {
+    //   console.log(element.id);
+    //   firebase.firestore().doc('exercicios/'+element.id).get().then(exer => {
+    //    // console.log(exer.data());
+    //     //console.log(exer.id)
+    //     this.paciente.exer.push(exer.data());
+    //   });
+    // });
     //console.log("paciente exercicios id", this.paciente.exercicios);
     //console.log("paciente exercicios completo!", this.paciente.exer);
 
-    
+
     //console.log(this.paciente);
   }
-  listaPacienteEx(id: any){
+  listaPacienteEx(id: any) {
     //for(i=0; i<this.listaDoPaciente.length; i++){
-      //console.log(this.listaDoPaciente[i], "=========", id);
-    for(let ex of this.listaDoPaciente.values()){
-      if(ex==id){
+    //console.log(this.listaDoPaciente[i], "=========", id);
+    for (let ex of this.listaDoPaciente.values()) {
+      if (ex == id) {
         return true;
       }
     }
     return false;
   }
 
-  MudaListaDoPaciente(remove: boolean, id: any){
-    if(remove){
+  MudaListaDoPaciente(remove: boolean, id: any) {
+    if (remove) {
       this.listaDoPaciente.delete(id);
-    }else{
+    } else {
       this.listaDoPaciente.add(id);
     }
   }
-  Salvar(){
-    this.listaDoPaciente.forEach(s => this.listaArray.push(s));
-    firebase.firestore().collection(`contas`).doc(this.idp).update({
-      exercicios: this.listaArray
-  })
-  .then(function() {
-      console.log("Document successfully written!");
-  })
-  .catch(function(error) {
+  Salvar() {
+    try {
+      this.listaDoPaciente.forEach(s => this.listaArray.push(s));
+      firebase.firestore().collection(`contas`).doc(this.idp).update({
+        exercicios: this.listaArray
+      });
+      //console.log("Document successfully written!");
+      this.presentToast("Modificações salvas com sucesso!");
+    }
+    catch (error) {
       console.error("Error writing document: ", error);
-  });
-  //IDEIA PARA ATUALIZAR A LISTA QUE DEU TERRIVELMENTE ERRADO
+      this.presentToast("Erro ao salvar!")
+    };
+    //IDEIA PARA ATUALIZAR A LISTA QUE DEU TERRIVELMENTE ERRADO
     FexerciciosPacienteService.paciente.exercicios = this.listaArray;
     this.router.navigate(['fpaciente']);
+  }
+
+  async presentToast(message: string) {
+    let toast = await this.toastCtrl.create({ message, duration: 2000 });
+    toast.present();
   }
 }

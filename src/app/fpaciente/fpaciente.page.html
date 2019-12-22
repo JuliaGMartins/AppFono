@@ -1,24 +1,44 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start"> 
-            <ion-back-button></ion-back-button>
-          </ion-buttons>
-      <ion-title>
-          <span text-color="my-custom-color"> Deglutindo </span>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span text-color="my-custom-color"> Deglutindo </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
   <ion-list>
     <ion-item>
-        <ion-button fill = "clear" class = "itemBtns" (click)="fexercicios(paciente)"><ion-label>Exercícios</ion-label></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-button fill = "clear" class = "itemBtns" (click)="ftexturas(paciente)"><ion-label>Texturas Alimentares</ion-label></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-button fill = "clear" class = "itemBtns" (click)="futensilios(paciente)"><ion-label>Utensílios</ion-label></ion-button>
-      </ion-item>
-</ion-list>
+      <ion-button fill="clear" class="itemBtns" (click)="finfo(paciente)">
+        <ion-label>Informações do Paciente</ion-label>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Listas</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list>
+    <ion-item>
+      <ion-button fill="clear" class="itemBtns" (click)="fexercicios(paciente)">
+        <ion-label>Exercícios</ion-label>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button fill="clear" class="itemBtns" (click)="ftexturas(paciente)">
+        <ion-label>Texturas Alimentares</ion-label>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button fill="clear" class="itemBtns" (click)="futensilios(paciente)">
+        <ion-label>Utensílios</ion-label>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

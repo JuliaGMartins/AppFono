@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FexerciciosPacienteService } from '../services/fexercicios-paciente.service';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-futensilios',
@@ -20,7 +21,7 @@ export class FutensiliosPage implements OnInit {
   public listaArray: any;
   public id: any;
 
-  constructor(private d: ChangeDetectorRef, private router: Router) { 
+  constructor(private toastCtrl: ToastController, private d: ChangeDetectorRef, private router: Router) { 
     this.listaUt = [];
     this.listaUtPaciente = new Set();
     this.detector = d;
@@ -30,7 +31,7 @@ export class FutensiliosPage implements OnInit {
     this.paciente = FexerciciosPacienteService.paciente;
     this.id = FexerciciosPacienteService.id;
 
-    if(this.paciente.exercicios != null){
+    if(this.paciente.utensilios != null){
       this.paciente.utensilios.forEach(element => {
       this.listaUtPaciente.add(element);
       });
@@ -67,17 +68,24 @@ export class FutensiliosPage implements OnInit {
   }
 
   Salvar(){
+    try{
     this.listaUtPaciente.forEach(s => this.listaArray.push(s));
     firebase.firestore().collection(`contas`).doc(FexerciciosPacienteService.id).update({
       utensilios: this.listaArray
-  })
-  .then(function() {
-      console.log("Document successfully written!");
-  })
-  .catch(function(error) {
-      console.error("Error writing document: ", error);
   });
+      //console.log("Document successfully written!");
+      this.presentToast("Modificações salvas com sucesso!");
+  }
+  catch(error) {
+      console.error("Error writing document: ", error);
+      this.presentToast("Erro ao salvar!");
+  };
     FexerciciosPacienteService.paciente.utensilios = this.listaArray;
     this.router.navigate(['fpaciente']);
+  }
+
+  async presentToast(message: string) {
+    let toast = await this.toastCtrl.create({ message, duration: 2000 });
+    toast.present();
   }
 }

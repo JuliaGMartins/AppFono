@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'ftexturas', loadChildren: './ftexturas/ftexturas.module#FtexturasPageModule', canActivate: [AuthGuard] },
   { path: 'futensilios', loadChildren: './futensilios/futensilios.module#FutensiliosPageModule', canActivate: [AuthGuard] },
   { path: 'fexercicios', loadChildren: './fexercicios/fexercicios.module#FexerciciosPageModule', canActivate: [AuthGuard] },
-  { path: 'transicao', loadChildren: './transicao/transicao.module#TransicaoPageModule', canActivate: [AuthGuard] }
+  { path: 'transicao', loadChildren: './transicao/transicao.module#TransicaoPageModule', canActivate: [AuthGuard] },
+  { path: 'finfo', loadChildren: './finfo/finfo.module#FinfoPageModule' }
   ];
 
 @NgModule({

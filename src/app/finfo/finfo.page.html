@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span text-color="my-custom-color"> Deglutindo </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Informações do paciente</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Nome: {{paciente.nome}} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Laudo de Exame de Imagens: {{paciente.exameimagens}} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Diagnóstico Médico: {{paciente.diagnostico}} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Médico Responsável: {{paciente.medico}} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Telefone do Médico Responsável: {{paciente.telmedico}} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Encaminhamento: {{paciente.encaminhamento}} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Telefone do Encaminhamento: {{paciente.telencaminhamento}} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" class="ion-text-wrap">Medicamentos: {{paciente.medicamentos}} </ion-label>
+  </ion-item>
+</ion-content>

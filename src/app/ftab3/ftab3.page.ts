@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../interfaces/user';
+import * as admin from 'firebase-admin';
+import {environment} from '../../environments/environment'
 import { LoadingController, ToastController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -29,9 +31,7 @@ export class FTab3Page {
 
 
   constructor(private loadingCtrl: LoadingController,
-    private authService: AuthService,
     private toastCtrl: ToastController,
-    private afa: AngularFireAuth,
     public firestore: AngularFirestore,
     private userservice: UserService) {
 
@@ -57,20 +57,23 @@ export class FTab3Page {
 
   async cadastro() {
     await this.presentLoading();
+    var refFire = firebase.initializeApp(environment.firebase, 'segundo');
     try {
-      this.afa.auth.createUserWithEmailAndPassword(this.userRegister.email, this.userRegister.password)
+      refFire.auth().createUserWithEmailAndPassword(this.userRegister.email, this.userRegister.password)
         .then(data => {
           this.CreateRecord(data.user.uid, this.isfono, this.nome, this.exameimagens, this.diagnostico, this.medico, this.telmedico, this.encaminhamento, this.telencaminhamento, this.medicamentos);
+          refFire.auth().signOut();
+          this.presentToast("Cadastro realizado com sucesso!")
         })
-        .then(() => {
-          this.afa.auth.currentUser.sendEmailVerification();
-        })
+        // .then(() => {
+        //   this.afa.auth.currentUser.sendEmailVerification();
+        // })
     } catch (error) {
       console.error(error);
       this.presentToast("Erro ao cadastrar!");
     } finally {
       this.loading.dismiss();
-      this.authService.logout();
+      //this.authService.logout();
     }
   }
 
@@ -108,4 +111,3 @@ export class FTab3Page {
     toast.present();
   }
 }
-
